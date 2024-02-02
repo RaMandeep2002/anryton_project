@@ -28,14 +28,14 @@ describe('|===========================================Stake Contract============
       // await anryton.connect(user2).approve(stakeContract.address, ethers.MaxUint256);
   });
   it.only("Addresses of the user",async () => {
-    console.log("the address of the anryton token ==> ",anryton.target );
-    console.log("The address of the stakeing contract ==> ",stakeContract.target );
-    console.log("The address of the owner ==> ", owner.address);
-    console.log("The address of the user1 ==> ", user1.address);
-    console.log("the adddress of the user2 ==> ", user2.address)
+    // console.log("the address of the anryton token ==> ",anryton.target );
+    // console.log("The address of the stakeing contract ==> ",stakeContract.target );
+    // console.log("The address of the owner ==> ", owner.address);
+    // console.log("The address of the user1 ==> ", user1.address);
+    // console.log("the adddress of the user2 ==> ", user2.address)
   })
 
-  it('Deposit() function', async () => {
+  it.only('Deposit() function', async () => {
     
     await anryton.connect(owner).approve(stakeContract.target,  TOKEN_A_AMOUNT);
     const depositAmount = ethers.parseEther('100');
@@ -56,7 +56,7 @@ describe('|===========================================Stake Contract============
     expect(contractBalance).to.equal(depositAmount);
   });
 
-    it('Stake() function ', async () => {
+    it.only('Stake() function ', async () => {
       await anryton.connect(owner).approve(stakeContract.target,  TOKEN_A_AMOUNT);
       const depositAmount = ethers.parseEther('100');
       // console.log("THe deposit ammount is ==> ",depositAmount)
@@ -79,7 +79,7 @@ describe('|===========================================Stake Contract============
       // console.log("contract balance ==> ", contractBalance);
       expect(contractBalance).to.equal("150000000000000000000");
     });
-    it("should allow users to Unstake tokens", async() =>{
+    it.only("should allow users to Unstake tokens", async() =>{
       await anryton.connect(owner).approve(stakeContract.target,  TOKEN_A_AMOUNT);
       const depositAmount = ethers.parseEther('100');
       // console.log("THe deposit ammount is ==> ",depositAmount)
@@ -108,7 +108,7 @@ describe('|===========================================Stake Contract============
       // console.log("This is the custom testcase")
       // await anryton.mint();
       const getlatestsale = await stakeContract.getLatestMintedSale();
-      console.log("Get the latest sale ==> ", getlatestsale)
+      // console.log("Get the latest sale ==> ", getlatestsale)
     //   await anryton.mint(user1.address, TOKENUSER1)
     //   await anryton.mint(user2.address, TOKENUSER2)
 
@@ -116,20 +116,20 @@ describe('|===========================================Stake Contract============
     //   await anryton.connect(user2).approve(stakeContract.address, ethers.MaxUint256);
     await anryton.connect(owner).approve(stakeContract.target,  TOKEN_A_AMOUNT);
     const depositAmount = ethers.parseEther('100');
-    console.log("THe deposit ammount is ==> ",depositAmount)  
+    // console.log("THe deposit ammount is ==> ",depositAmount)  
     // User1 deposits tokens
     await stakeContract.connect(owner).deposit(user1.address, depositAmount);
 
     // Check if the user1's balance is updated
     const user1Balance = await stakeContract.users(user1.address);
-    console.log("Userbalance after deposit token ==> ",user1Balance)
+    // console.log("Userbalance after deposit token ==> ",user1Balance)
     const user1tokenbalance = await user1Balance.tokenBalance;
-    console.log("The balance of the token  for the user1 ==> ", user1tokenbalance);
+    // console.log("The balance of the token  for the user1 ==> ", user1tokenbalance);
     expect(user1tokenbalance).to.equal(depositAmount);
 
     // Check if the contract holds the deposited tokens
     const contractBalance = await anryton.balanceOf(stakeContract.target);
-    console.log("The contract balance of the staking contract holds==>", contractBalance);
+    // console.log("The contract balance of the staking contract holds==>", contractBalance);
     expect(contractBalance).to.equal(depositAmount);
     })
 
