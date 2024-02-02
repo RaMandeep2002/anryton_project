@@ -11,7 +11,7 @@ contract Anryton is ERC20, Ownable {
         uint160 supply;
         address walletAddress;
     }
-
+    
     uint160 private constant MAX_TOTAL_SUPPLY = 400000000 ether;
     string private _latestSale = "FRIEND_FAMILY";
     uint8 public mintingCounter = 0;
