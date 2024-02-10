@@ -17,7 +17,8 @@ describe('|===========================================Stake Contract============
     [owner, user1, user2] = await ethers.getSigners();
     const Anryton = await ethers.getContractFactory("Anryton");
     const Stake = await ethers.getContractFactory('Stake');
-    anryton = await Anryton.deploy("ANRYTON", "ANRY");
+    // anryton = await Anryton.deploy("ANRYTON", "ANRY","0x7f969024c77F8B997aD5fcF09d2D7AD6ADfa06E2");
+    anryton = await Anryton.deploy("ANRYTON", "ANRY",owner.address);
     stakeContract = await Stake.deploy(anryton.target);
     // await stakeContract.deployed();
       // await anryton.mint(owner.address, TOKENOWNER)
@@ -28,11 +29,11 @@ describe('|===========================================Stake Contract============
       // await anryton.connect(user2).approve(stakeContract.address, ethers.MaxUint256);
   });
   it.only("Addresses of the user",async () => {
-    // console.log("the address of the anryton token ==> ",anryton.target );
-    // console.log("The address of the stakeing contract ==> ",stakeContract.target );
-    // console.log("The address of the owner ==> ", owner.address);
-    // console.log("The address of the user1 ==> ", user1.address);
-    // console.log("the adddress of the user2 ==> ", user2.address)
+    console.log("the address of the anryton token ==> ",anryton.target );
+    console.log("The address of the stakeing contract ==> ",stakeContract.target );
+    console.log("The address of the owner ==> ", owner.address);
+    console.log("The address of the user1 ==> ", user1.address);
+    console.log("the adddress of the user2 ==> ", user2.address)
   })
 
   it.only('Deposit() function', async () => {
