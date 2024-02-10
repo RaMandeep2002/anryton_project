@@ -7,19 +7,26 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: "0.8.19",
- networks:{
+  networks:{
   sepolia: {
     url: process.env.API_URL,
     accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    allowUnlimitedContractSize: true,
     gas: 2000000, 
     gasPrice: 20000000000,
   },
- },
+},
  etherscan: {
   apiKey: {
-    sepolia: 'F8HVU3CJ6XK43C1Z2I76ZHAAZFRHIBW88T'
+    sepolia: 'CVK1VQ1JVTIIARH1DFB2W27UZTNQVWXMBQ'
   }
+},
+sourcify: {
+  // Disabled by default
+  // Doesn't need an API key
+  enabled: true
 }
+
 };
 
 export default config;

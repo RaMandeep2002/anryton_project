@@ -1,8 +1,8 @@
-  import { ethers } from "hardhat";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { ethers } from "hardhat";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/src/signers";
 import {
-  Aryton,
-  Aryton__factory,
+  Anryton,
+  Anryton__factory,
   Stake,
   Stake__factory
 } from "../typechain-types";
@@ -14,14 +14,16 @@ async function main() {
 }
 
 async function deployContractWithProxy(owner: any) {
-  const erc20: Aryton = await new Aryton__factory(owner).deploy("ANRYTON", "ANRY");
-  const contract: Stake = await new Stake__factory(owner).deploy(erc20.target, {
-    gasLimit: 10000000
-  });
+  const erc20: Anryton = await new Anryton__factory(owner).deploy("ANRYTON", "ANRY", "0x7f969024c77F8B997aD5fcF09d2D7AD6ADfa06E2",{
+       gasLimit: 10000000
+    });
+  // const contract: Stake = await new Stake__factory(owner).deploy(erc20.target, {
+  //   gasLimit: 10000000
+  // });
 
   console.log({
     Anryton: erc20.target, 
-    Stake: contract.target
+    // Stake: contract.target
   });
 }
 

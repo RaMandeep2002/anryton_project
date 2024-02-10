@@ -16,6 +16,11 @@
 						"internalType": "string",
 						"name": "_tokenSymbol",
 						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -713,11 +718,11 @@
 			]
 		},
 		"contracts/Anryton.sol": {
-			"keccak256": "0x4d0c80493844ba765f90c02464808c5df8bee70e68e61c2e3ff365a932273fbe",
+			"keccak256": "0xc349fa66464ac009bf5e6a500103b1fcbddf57f89187a8632e9a920cb24f43b3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://33602c908aa1fdd52fc3e73c5ec9d2b14ad8acaa27fcfab3c2b68f7e1aa90f96",
-				"dweb:/ipfs/QmaM9bSqYeC1ZCsbBW5d6B7K9SAYFmV9TNyw5KCyu7unS2"
+				"bzz-raw://e23cf0fe19a096522ba660a5be43d06c20d25b9479101ea9ea5e580e53d5ef5c",
+				"dweb:/ipfs/QmUEvCEncAJnBn2CG7Z2Eey2VT5JvESHHAkBUGk4z9iUqS"
 			]
 		}
 	},

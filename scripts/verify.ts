@@ -3,14 +3,14 @@ const hre = require("hardhat");
 async function main() {
   try {
     const addresses = [
-    //   {
-    //     address: "0x02d4bE5093fBE2c92BBBC101d98c3845C066Fc6e",
-    //     params: ["ANRYTON", "ANRY"],
-    //     filePath: "contracts/Anryton.sol:Anryton"
-    //   },
+      // {
+      //   address: "0x1804bd92c5a11cf7f5f6705e76e57b0ed57d4748",
+      //   params: ["ANRYTON", "ANRY"],
+      //   filePath: "contracts/Anryton.sol:Anryton"
+      // },
       {
-        address: "0x128420D828f98A147feC71F4e82DB987b653Ae3b",
-        params: ["0x02d4bE5093fBE2c92BBBC101d98c3845C066Fc6e"],
+        address: "0x23eDA2BB5Ed42F65F3743e7Ec675A79f2855Cc39",
+        params: ["0x1804bd92c5a11cf7f5f6705e76e57b0ed57d4748"],
         filePath: "contracts/Stake.sol:Stake"
       }
     ];

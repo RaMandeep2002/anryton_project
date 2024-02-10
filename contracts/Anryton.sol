@@ -16,10 +16,23 @@ contract Anryton is ERC20, Ownable {
     string private _latestSale = "FRIEND_FAMILY";
     uint8 public mintingCounter = 0;
 
+    address immutable   _FRIEND_FAMILY = 0x40F073D687d1F767a2D01cAFA2d2Bdff22fdD3Bd;
+    address immutable   _PRIVATE_SALE = 0xca26FC94876777c578D08A1f39de6774b91c67E4;
+    address immutable   _PUBLIC_SALE = 0x5C8bD761c4926327CF65B1027FD4CaE4d1ffDD66;
+    address immutable   _TEAM = 0xC9E61E82ecD2B84C29409Cb7E5e6255ebAf21151;
+    address immutable   _RESERVES = 0x5cA3dc4a9D00D96f2cfe1c61eDDbE532498dfa4A;
+    address immutable   _STORAGE_MINTING_ALLOCATION = 0xd88A39948B3A62a302c9c6Bb7932ca01c7bD3E05;
+    address immutable   _GRANTS_REWARD = 0xF59583ae201583311b288DFe5Dc60158fB1084d4;
+    address immutable   _MARKETTING = 0x3f65C00252f5AF049eccFCeDfD024E5F8EeE670f;
+    address immutable   _ADVISORS = 0x1e7Bcd3c058aD518Ed38cDA9EeF149dd310a564A;
+    address immutable   _LIQUIDITY_EXCHANGE_LISTING = 0xC8fc19c358045717Eaa5D6E13824f3969e949826;
+    address immutable   _STAKING = 0x975a33A6c0BF5c242D5148d19E7a5e6dc28A1BB0;
+
     /** track wallet and supply assigned to a particular supply */
     mapping(string => address) private assignedWalletToSale;
     mapping(string => mapping(address => uint256)) private mintedWalletSupply;
-    mapping(uint => MintingSale) public mintedSale;
+    mapping(uint => MintingSale) public mintedSale;      
+   
 
     event MintedWalletSuupply(
         string indexed sale,
@@ -29,33 +42,34 @@ contract Anryton is ERC20, Ownable {
 
     constructor(
         string memory _tokenName,
-        string memory _tokenSymbol
-    ) ERC20(_tokenName, _tokenSymbol) Ownable(msg.sender) {
-        _setCommissions(msg.sender);
+        string memory _tokenSymbol,
+        address _owner
+    ) ERC20(_tokenName, _tokenSymbol) Ownable(_owner) {
+        _setCommissions();
     }
 
-    function _setCommissions(address _owner) private {
-        _calcSaleSupply(1, "FRIEND_FAMILY", _owner, 12000000 ether);
-        _calcSaleSupply(2, "PRIVATE_SALE", _owner, 24000000 ether);
-        _calcSaleSupply(3, "PUBLIC_SALE", _owner, 24000000 ether);
-        _calcSaleSupply(4, "TEAM", _owner, 40000000 ether);
-        _calcSaleSupply(5, "RESERVES", _owner, 100000000 ether);
+    function _setCommissions() private {
+        _calcSaleSupply(1, "FRIEND_FAMILY", _FRIEND_FAMILY, 12000000 ether);
+        _calcSaleSupply(2, "PRIVATE_SALE", _PRIVATE_SALE, 24000000 ether);
+        _calcSaleSupply(3, "PUBLIC_SALE", _PUBLIC_SALE, 24000000 ether);
+        _calcSaleSupply(4, "TEAM", _TEAM, 40000000 ether);
+        _calcSaleSupply(5, "RESERVES", _RESERVES, 100000000 ether);
         _calcSaleSupply(
             6,
             "STORAGE_MINTING_ALLOCATION",
-            _owner,
+            _STORAGE_MINTING_ALLOCATION,
             40000000 ether
         );
-        _calcSaleSupply(7, "GRANTS_REWARD", _owner, 80000000 ether);
-        _calcSaleSupply(8, "MARKETTING", _owner, 40000000 ether);
-        _calcSaleSupply(9, "ADVISORS", _owner, 12000000 ether);
+        _calcSaleSupply(7, "GRANTS_REWARD", _GRANTS_REWARD, 80000000 ether);
+        _calcSaleSupply(8, "MARKETTING", _MARKETTING, 40000000 ether);
+        _calcSaleSupply(9, "ADVISORS", _ADVISORS, 12000000 ether);
         _calcSaleSupply(
             10,
             "LIQUIDITY_EXCHANGE_LISTING",
-            _owner,
+            _LIQUIDITY_EXCHANGE_LISTING,
             20000000 ether
         );
-        _calcSaleSupply(11, "STAKING", _owner, 8000000 ether);
+        _calcSaleSupply(11, "STAKING", _STAKING, 8000000 ether);
 
         /** mint once every partician is done
          * First sale will be get minted "FRIEND_FAMILY"
