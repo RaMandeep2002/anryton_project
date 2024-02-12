@@ -5,7 +5,7 @@ import "./IAnryton.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Sales is Ownable {
-    uint256 private saleCounter = 0;
+    uint256 private saleCounter;
 
     struct Sale {
         string name;
@@ -14,7 +14,7 @@ contract Sales is Ownable {
         uint256 startAt;
     }
 
-    IAnryton immutable public token;
+    IAnryton public token;
 
     mapping(string => uint256) public saleId;
     mapping(uint256 => Sale) public saleInfo;
@@ -25,17 +25,22 @@ contract Sales is Ownable {
         uint256 indexed startAt
     );
 
-    constructor(address _token) Ownable(msg.sender) {
-        token = IAnryton(_token);
-        _defaultSale();
+    constructor (
+        address _token,
+        address _owner
+    ) Ownable(msg.sender) {
+        saleCounter = 0;
+         token = IAnryton(_token);
+        _defaultSale(_owner);
     }
 
     /***
      * @function _defaultSale
      * @dev start "Friend & Family" sale at the time of deoloy
      */
-    function _defaultSale() private {
+    function _defaultSale(address _owner) private {
         startSale();
+        _transferOwnership(_owner);
     }
 
     /***

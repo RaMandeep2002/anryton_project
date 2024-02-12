@@ -38,7 +38,7 @@ contract Stake is Sales, ReentrancyGuard {
     }
 
     /** always multiply with 10 to ignore decials in smart contract */
-    uint16 public stakingPercentage = 100;
+    uint16 public stakingPercentage;
 
     /*** @dev finances for getting all info related to user total invested amount */
     mapping(address => UserInfo) public users;
@@ -78,8 +78,12 @@ contract Stake is Sales, ReentrancyGuard {
         _;
     }
 
-    /** @dev Initialising or deploying smart contract */
-    constructor(address _token) Sales(_token) {}
+    constructor(
+        address _token,
+        address _owner
+    ) Sales(_token, _owner) {
+        stakingPercentage = 100;
+    }
 
     /***
      * @function deposit
@@ -509,51 +513,51 @@ contract Stake is Sales, ReentrancyGuard {
 
         uint256 endTime = _userDeposit.depositedAt + (_m * 30 * 24 * 60 * 60);
         if (_currentTime > endTime) {
-        _userDeposit.depositAmount -= uint160(_tgcAmount);
+            _userDeposit.depositAmount -= uint160(_tgcAmount);
 
-        /** check if sale is "PUBLIC_SALE" OR "PRIVATE_SALE" */
-        if (
-            _compareEqual(_userDeposit.sale, "FRIEND_FAMILY") ||
-            _compareEqual(_userDeposit.sale, "PRIVATE_SALE") ||
-            _compareEqual(_userDeposit.sale, "PUBLIC_SALE")
-        ) {
-            if ((_m >= 7) && (_m <= 18)) {
-                if (_m == 7) _tokenWithdrawn = _userDeposit.withdrawAmount;
-                _amount += _userDeposit.depositAmount / 12;
-                if (_m == 18) _isMatured = true;
+            /** check if sale is "PUBLIC_SALE" OR "PRIVATE_SALE" */
+            if (
+                _compareEqual(_userDeposit.sale, "FRIEND_FAMILY") ||
+                _compareEqual(_userDeposit.sale, "PRIVATE_SALE") ||
+                _compareEqual(_userDeposit.sale, "PUBLIC_SALE")
+            ) {
+                if ((_m >= 7) && (_m <= 18)) {
+                    if (_m == 7) _tokenWithdrawn = _userDeposit.withdrawAmount;
+                    _amount += _userDeposit.depositAmount / 12;
+                    if (_m == 18) _isMatured = true;
+                }
             }
-        }
 
-        /** check if sale is "TEAM" OR "ADVISORS" */
-        if (
-            _compareEqual(_userDeposit.sale, "TEAM") ||
-            _compareEqual(_userDeposit.sale, "ADVISORS")
-        ) {
-            if ((_m >= 13) && (_m <= 36)) {
-                if (_m == 13) _tokenWithdrawn = _userDeposit.withdrawAmount;
-                _amount += _userDeposit.depositAmount / 24;
-                if (_m == 36) _isMatured = true;
+            /** check if sale is "TEAM" OR "ADVISORS" */
+            if (
+                _compareEqual(_userDeposit.sale, "TEAM") ||
+                _compareEqual(_userDeposit.sale, "ADVISORS")
+            ) {
+                if ((_m >= 13) && (_m <= 36)) {
+                    if (_m == 13) _tokenWithdrawn = _userDeposit.withdrawAmount;
+                    _amount += _userDeposit.depositAmount / 24;
+                    if (_m == 36) _isMatured = true;
+                }
             }
-        }
 
-        /** check if sale is "RESERVES" OR "STORAGE_MINTING_ALLOCATION" */
-        if (
-            _compareEqual(_userDeposit.sale, "RESERVES") ||
-            _compareEqual(_userDeposit.sale, "STORAGE_MINTING_ALLOCATION")
-        ) {
-            if ((_m >= 25) && (_m <= 36)) {
-                if (_m == 25) _tokenWithdrawn = _userDeposit.withdrawAmount;
-                _amount += _userDeposit.depositAmount / 12;
-                if (_m == 36) _isMatured = true;
+            /** check if sale is "RESERVES" OR "STORAGE_MINTING_ALLOCATION" */
+            if (
+                _compareEqual(_userDeposit.sale, "RESERVES") ||
+                _compareEqual(_userDeposit.sale, "STORAGE_MINTING_ALLOCATION")
+            ) {
+                if ((_m >= 25) && (_m <= 36)) {
+                    if (_m == 25) _tokenWithdrawn = _userDeposit.withdrawAmount;
+                    _amount += _userDeposit.depositAmount / 12;
+                    if (_m == 36) _isMatured = true;
+                }
             }
-        }
 
-        /** Getting value for MARKETTING */
-        if (_compareEqual(_userDeposit.sale, "MARKETTING")) {
-            if (_m == 18) _tokenWithdrawn = _userDeposit.withdrawAmount;
-            _amount += _calcMarketting(_m, _userDeposit.depositAmount);
-            if (_m == 42) _isMatured = true;
-        }
+            /** Getting value for MARKETTING */
+            if (_compareEqual(_userDeposit.sale, "MARKETTING")) {
+                if (_m == 18) _tokenWithdrawn = _userDeposit.withdrawAmount;
+                _amount += _calcMarketting(_m, _userDeposit.depositAmount);
+                if (_m == 42) _isMatured = true;
+            }
         }
 
         return (_amount, _tokenWithdrawn, _isMatured);
