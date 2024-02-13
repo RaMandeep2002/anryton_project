@@ -18,7 +18,7 @@ const config: HardhatUserConfig = {
 },
  etherscan: {
   apiKey: {
-    sepolia: 'CVK1VQ1JVTIIARH1DFB2W27UZTNQVWXMBQ'
+    sepolia: 'you api key'
   }
 },
 sourcify: {

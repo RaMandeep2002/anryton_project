@@ -14,7 +14,7 @@ async function main() {
 }
 
 async function deployContractWithProxy(owner: any) {
-  const erc20: Anryton = await new Anryton__factory(owner).deploy("ANRYTON", "ANRY", "0xb62962Bb2661BC5c5fFfa648A2C2B7A3e8CD4d4B",{
+  const erc20: Anryton = await new Anryton__factory(owner).deploy("ANRYTON", "ANRY", "",{
        gasLimit: 10000000
     });
   const contract: Stake = await new Stake__factory(owner).deploy(erc20.target, {
